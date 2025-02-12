@@ -1,18 +1,21 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
 import InputText from '@/components/ui/inputs/InputText.vue';
-import { ref, type Ref } from 'vue';
+import { ref } from 'vue';
 import { registerSchema } from '@/schemas/register.schema';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
+import useUserStore from '@/stores/user';
 import { useRouter } from 'vue-router';
+
+const { setUser } = useUserStore();
+
+const navigate = useRouter();
 
 const email = ref('');
 const password = ref('');
 
 const error = ref<string[]>([]);
-
-const navigate = useRouter();
 
 const submit = () => {
   const result = registerSchema.safeParse({ email: email.value, password: password.value });
@@ -21,15 +24,15 @@ const submit = () => {
     return;
   }
   error.value = [];
-  createUserWithEmailAndPassword(auth, result.data.email, result.data.password)
+  signInWithEmailAndPassword(auth, result.data.email, result.data.password)
     .then((userCredential) => {
       const user = userCredential.user;
+      setUser(user.email!);
       console.log(user);
-      navigate.push({ name: 'login' });
+      navigate.push({ name: 'dashboard' });
     })
     .catch((error) => {
       console.error(error);
-      navigate.push({ name: 'login' });
     });
 };
 </script>

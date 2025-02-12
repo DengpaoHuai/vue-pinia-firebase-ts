@@ -2,7 +2,7 @@
 import InputText from 'primevue/inputtext';
 
 defineProps<{
-  modelValue: string;
+  modelValue: string | undefined;
 }>();
 
 const emits = defineEmits<{
