@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import useFirestore from '@/composables/useFirestore';
 import type { Cadeau } from '@/schemas/cadeau.schema';
+import useCadeauStore from '@/stores/cadeau';
 import useUserStore from '@/stores/user';
+import { storeToRefs } from 'pinia';
 
 const { userStore } = useUserStore();
+const cadeauStore = useCadeauStore();
 
-const { deleteItem: deleteCadeau, data: cadeaux } = useFirestore<Cadeau>('cadeaux');
+const { deleteCadeau } = cadeauStore;
+const { cadeaux } = storeToRefs(cadeauStore);
 
 const removeCadeau = (id: string) => {
   deleteCadeau(id)

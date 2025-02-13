@@ -1,8 +1,19 @@
 import { db } from '@/lib/firebase';
-import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  type DocumentData,
+  type WithFieldValue,
+} from 'firebase/firestore';
 import { onMounted, ref } from 'vue';
 
-const useFirestore = <T extends { [x: string]: any }>(name: string) => {
+//generic
+//we use generic to define the type of the data we are going to get from firestore
+// we use WithFieldValue to define the type of the data we are going to get from firestore. We want to maintain the type of the data we are going to get from firestore in the future.
+const useFirestore = <T extends WithFieldValue<DocumentData>>(name: string) => {
   const data = ref<T[]>([]);
   const error = ref<string | null>(null);
 
@@ -36,8 +47,9 @@ const useFirestore = <T extends { [x: string]: any }>(name: string) => {
     getData();
   };
 
-  const addItem = (item: T) => {
-    addDoc(collection(db, name), item);
+  const addItem = async (item: T) => {
+    const result = await addDoc(collection(db, name), item);
+    return result.id;
   };
 
   return {
