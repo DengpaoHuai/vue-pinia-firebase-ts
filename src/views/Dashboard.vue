@@ -23,8 +23,9 @@ const removeCadeau = (id: string) => {
 </script>
 
 <template>
-  <p>bienvenue : {{ userStore.email }}</p>
+  <p>bienvenue : {{ userStore }}</p>
   <RouterLink :to="{ name: 'create_cadeau' }">create cadeau</RouterLink>
+  <a href="/create_cadeau">create_cadeau</a>
   <div v-for="cadeau in cadeaux" :key="cadeau.id">
     <p>{{ cadeau.title }}</p>
     <p>{{ cadeau.description }}</p>

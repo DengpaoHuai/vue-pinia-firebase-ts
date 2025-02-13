@@ -1,20 +1,17 @@
-import { reactive } from 'vue';
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
 
-const userStore = reactive<{
-  email: string | null;
-}>({
-  email: null,
-});
+const useUserStore = defineStore('user', () => {
+  const email = ref('');
 
-const useUserStore = () => {
-  const setUser = (email: string) => {
-    userStore.email = email;
+  const setUser = (email1: string) => {
+    email.value = email1;
   };
 
   return {
-    userStore,
     setUser,
+    userStore: email,
   };
-};
+});
 
 export default useUserStore;
