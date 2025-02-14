@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ListPlanet from '@/features/planet/components/ListPlanet.vue';
-import { Skeleton } from 'primevue';
-import { defineAsyncComponent, Suspense } from 'vue';
+import ListSkeleton from '@/features/planet/components/ListSkeleton.vue';
+import { Suspense } from 'vue';
 </script>
 
 <template>
@@ -10,9 +10,7 @@ import { defineAsyncComponent, Suspense } from 'vue';
     <Suspense>
       <ListPlanet></ListPlanet>
       <template #fallback>
-        <div v-for="i in 10" :key="i">
-          <Skeleton width="5rem" class="mb-2" style="margin-bottom: 10px"></Skeleton>
-        </div>
+      <ListSkeleton></ListSkeleton>
       </template>
     </Suspense>
   </div>

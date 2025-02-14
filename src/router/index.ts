@@ -63,6 +63,11 @@ const router = createRouter({
       name: 'cadeau_api_id',
       component: () => import('../views/CadeauDetail.vue'),
     },
+    {
+      path: '/planets/list',
+      name: 'planets_list',
+      component: () => import('../views/planets/list.vue'),
+    },
   ],
 });
 
