@@ -14,7 +14,8 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "test:mutation": "stryker run"
   },
   "dependencies": {
     "@primevue/themes": "^4.2.5",
@@ -27,6 +28,8 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@stryker-mutator/core": "^8.7.1",
+    "@stryker-mutator/vitest-runner": "^8.7.1",
     "@tsconfig/node22": "^22.0.0",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^22.13.1",
@@ -44,6 +47,7 @@
     "jsdom": "^26.0.0",
     "npm-run-all2": "^7.0.2",
     "prettier": "^3.4.2",
+    "rx": "^4.1.0",
     "start-server-and-test": "^2.0.10",
     "typescript": "~5.7.3",
     "vite": "^6.0.11",
